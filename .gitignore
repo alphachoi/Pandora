@@ -1,0 +1,6 @@
+*.pyc
+.progject
+.pydevproject
+*.db
+*/exanples/*
+*/test/*
