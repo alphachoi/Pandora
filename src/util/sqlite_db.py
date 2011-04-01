@@ -17,6 +17,7 @@ class SqliteDb(object):
         Constructor
         '''
         self.conn = sqlite3.connect(db_config['path'])
+        self.conn.row_factory = sqlite3.Row
         
         if(db_config['autocommit'] == True):
             self.conn.isolation_level = None
@@ -29,7 +30,6 @@ class SqliteDb(object):
             cursor.execute(sql)
         if sql.lstrip().upper().startswith("SELECT"):
             return cursor.fetchall()
-
             
 class WeiBo(SqliteDb):
     '''
@@ -51,7 +51,7 @@ class WeiBo(SqliteDb):
     '''设置oauth的consumer_token,具体含义见新浪微薄相关文档'''
     def setConsumerToken(self, token):
         
-        self.excute("replace into wb_config(app_key,app_secret) values(:consumer_key,:consumer_secret)", token)
+        self.excute("replace into wb_config(app_key,app_secret) values(:app_key,:app_secret)", token)
     
     '''获取access-token'''
     def getConsumerToken(self):
@@ -66,4 +66,4 @@ class WeiBo(SqliteDb):
     '''获取access-token'''
     def getAccessToken(self, uid):
         
-        return self.excute("select * from wb_user where uid=:uid", {'uid':uid})
+        return self.excute("select access_key,access_secret from wb_user where uid=:uid", {'uid':uid})
