@@ -92,10 +92,10 @@ class Comments(Model):
             if k == 'user':
                 user = User.parse(api, v)
                 setattr(comments, 'author', user)
-                setattr(comments, 'user', user)
+                setattr(comments, k, user)
             elif k == 'status':
                 status = Status.parse(api, v)
-                setattr(comments, 'user', status)
+                setattr(comments, k, status)
             elif k == 'created_at':
                 setattr(comments, k, parse_datetime(v))
             elif k == 'reply_comment':

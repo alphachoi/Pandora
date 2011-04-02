@@ -22,7 +22,9 @@ if __name__ == '__main__':
     oauth_handler.set_access_token(access_token[0][0], access_token[0][1])
     client = API(oauth_handler)
    
-    timeline = client.friends_timeline(count=50)
-
-    for status in timeline:
-        print status.user.name + ":" + status.text
+#    timeline = client.friends_timeline(count=50)
+    comments = client.comments_timeline()
+    for comment in comments:
+#        print status
+        print comment.user.name + ":" + comment.text + ":" + str(comment.created_at)
+        print comment.status.text
