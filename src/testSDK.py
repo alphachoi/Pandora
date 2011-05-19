@@ -5,28 +5,21 @@ Created on 2011-3-4
 @author: LiuTao
 '''
 from datetime import datetime
-import taobao.topClient
-from taobao.Request import UserRequest
+from taobao.api import API
+from taobao.Request import TaobaokeRequest
 from pyquery import PyQuery as pyq
 from util import sqlite_db
-
-class test:  
-    count = 0;  
-    def __init__(self, c):  
-        self.count = c;  
-        self.__class__.count = self.__class__.count + 1;  
     
-
 if __name__ == '__main__':
     
-    wei_bo = sqlite_db.WeiBo({"path":"db", "autocommit":True})
+#    wei_bo = sqlite_db.WeiBo({"path":"db", "autocommit":True})
 #    wei_bo.create_db()
 #    wei_bo.setAccessToken({'uid':1, 'access_key':"2756ed2fea9e36f46fba2dd748f13872", 'access_secret':'0b142a1e8538729158a7f01f0aebeab4'})
-    token = wei_bo.getToken(1)
-    print token
+#    token = wei_bo.getToken(1)
+#    print token
 #    wei_bo.setAccessToken({'uid':1, 'access_key':"2756ed", 'access_secret':'0b142a1e8538729158a7f01f0aebeab4'})
-    token = wei_bo.getToken(1)
-    print token    
+#    token = wei_bo.getToken(1)
+#    print token    
 #    param = {'c':2, 'b':5, 'v':'34', 'a':'xxxx'}
 #    
 #    ts = sorted(param.items(), key=lambda param:param[0])    
@@ -34,10 +27,12 @@ if __name__ == '__main__':
 #    print type(param)
 #    print type(ts)
     
-#    top = topClient.TopClient()
-#    
-#    req = UserRequest.getUsersReq()
-#    
+    api = API('12207348', '8b463172d3c30c57162c22039b41f3b9')
+    
+    item = api.item_get(fields="detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num", num_iid="9833495893")
+
+    print item
+    
 #    req.apiParas['fields'] = 'user_id,nick,seller_credit'
 #    req.apiParas['nicks'] = 'hz0799,南古月'
 #    
