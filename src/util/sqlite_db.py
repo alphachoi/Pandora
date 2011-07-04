@@ -67,3 +67,20 @@ class WeiBo(SqliteDb):
     def getAccessToken(self, uid):
         
         return self.excute("select access_key,access_secret from wb_user where uid=:uid", {'uid':uid})
+
+class DouBan(SqliteDb):
+    '''
+                豆瓣数据库模块
+    '''
+    def _init_(self, db_config):
+        
+        super(WeiBo, self)._init(db_config)    
+
+    '''初始化豆瓣模块数据库表'''
+    def create_db(self):
+        
+        self.excute("drop table if exists db_config")
+        self.excute("create table db_config (app_key string UNIQUE, app_secret string)")
+ 
+        self.excute("drop table if exists db_user")
+        self.excute("create table db_user (uid integer UNIQUE , access_key string , access_secret string)")

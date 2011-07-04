@@ -6,7 +6,7 @@ Created on 2011-3-16
 import unittest
 import sqlite3
 
-from db.sqlite_db import *
+from util.sqlite_db import *
 from datetime import datetime
 
 class SqliteDBTest(unittest.TestCase):

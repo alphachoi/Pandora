@@ -36,6 +36,8 @@ def bind_api(**config):
             self.api_version = api.api_version
             
             self.param = kargs
+            
+            self.session = api.session
              
         def generateSign(self, p):
             
@@ -60,7 +62,7 @@ def bind_api(**config):
                 print e
             return f
             
-        def execute(self, session=None):
+        def execute(self):
             
             sysParams = dict()
             sysParams["app_key"] = self.app_key
@@ -69,8 +71,7 @@ def bind_api(**config):
             sysParams["sign_method"] = self.sign_method
             sysParams["method"] = self.method
             sysParams["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            if session != None:
-                sysParams["session"] = session 
+            sysParams["session"] = self.session 
             
             api_param = self.param
             
@@ -97,7 +98,9 @@ def bind_api(**config):
                 print "format erro"
             else:
                 if 'error_response' in respObject:
-                    print "erro code " + respObject['error_response']['msg']
+                    print respObject['error_response']['msg']
+                    if 'code' in respObject['error_response']:
+                        print respObject['error_response']['code']
                 else:
                     return respObject
 
