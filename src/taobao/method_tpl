@@ -1,0 +1,3 @@
+    $methed_api = bind_api(
+        method='$methed'
+    )
