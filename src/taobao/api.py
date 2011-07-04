@@ -31,7 +31,7 @@ class API(object):
         
         self.api_version = version
         
-        self.session = "4061600XImpna0o98209fe3991208a2945f61b5da033b0e390468121"
+        self.session = ""
         
 #------------------用户API------------------------
 
