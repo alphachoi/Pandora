@@ -1,3 +1,4 @@
-    $methed_api = bind_api(
-        method='$methed'
+    #$intro
+    $method_api = bind_api(
+        method='$method'
     )

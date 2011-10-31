@@ -46,7 +46,7 @@ def bind_api(**config):
             
             stringToBeSigned = self.app_secret
             for (k, v) in param:
-                stringToBeSigned = stringToBeSigned + k + v
+                stringToBeSigned = stringToBeSigned + k + str(v)
                 
             stringToBeSigned += self.app_secret
             
@@ -58,8 +58,9 @@ def bind_api(**config):
             postBodyString = urllib.urlencode(apiParams)
             try:       
                 f = urllib2.urlopen(url, postBodyString)
-            except urllib2.HTTPError, e:
-                print e
+            except Exception as inst:
+                print inst
+                return None
             return f
             
         def execute(self):
@@ -89,6 +90,9 @@ def bind_api(**config):
             
             respWellFormed = False
             
+            if(resp == None):
+                return None
+            
             if self.format == 'json':
                 respObject = json.load(resp)
                 if respObject != None:
@@ -96,11 +100,13 @@ def bind_api(**config):
             
             if respWellFormed == False:
                 print "format erro"
+                return None
             else:
                 if 'error_response' in respObject:
                     print respObject['error_response']['msg']
                     if 'code' in respObject['error_response']:
                         print respObject['error_response']['code']
+                    return None
                 else:
                     return respObject
 
